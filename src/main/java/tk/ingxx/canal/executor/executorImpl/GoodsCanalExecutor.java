@@ -1,7 +1,9 @@
-package tk.ingxx.canal.executor;
+package tk.ingxx.canal.executor.executorImpl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import org.springframework.stereotype.Component;
+import tk.ingxx.canal.executor.executorImpl.AbstractCanalExecutor;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
  * @author: weijiankai
  * @create: 2020-07-27 17:21
  **/
-public class GoodsExecutor  extends AbstractExecutor{
+@Component
+public class GoodsCanalExecutor extends AbstractCanalExecutor {
 
     @Resource
     private CanalConnector goodsConnector;

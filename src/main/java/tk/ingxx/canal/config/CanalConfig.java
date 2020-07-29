@@ -34,6 +34,7 @@ public class CanalConfig {
     private String password;
 
     private Integer batchSize;
+
     @Bean
     @Order(2)
     public CanalConnector goodsConnector(){
