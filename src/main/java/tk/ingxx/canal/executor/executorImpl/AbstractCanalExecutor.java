@@ -15,8 +15,15 @@ import java.util.List;
  **/
 public abstract class AbstractCanalExecutor implements CanalExecutor {
 
-    public CanalConnector connector;
+    private CanalConnector connector;
 
+    /**
+     * 定义公共初始化
+     * @param canalConnector
+     */
+    public AbstractCanalExecutor(CanalConnector canalConnector){
+        this.connector = canalConnector;
+    }
 
     public void connect(){
         connector.connect();
@@ -49,5 +56,9 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
         connector.disconnect();
     }
 
+    /**
+     * 读取到的数据交给子类处理
+     * @param entry
+     */
     protected abstract void readRow(List<CanalEntry.Entry> entry);
 }

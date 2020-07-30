@@ -17,6 +17,14 @@ import java.util.List;
  **/
 public class GoodsCanalExecutor extends AbstractCanalExecutor {
 
+    /**
+     * 初始化连接类
+     * @param canalConnector
+     */
+    public GoodsCanalExecutor(CanalConnector canalConnector) {
+        super(canalConnector);
+    }
+
     @Override
     public void readRow(List<CanalEntry.Entry> entry) {
 

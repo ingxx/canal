@@ -37,16 +37,23 @@ public class CanalConfig {
 
     private Integer batchSize;
 
+    /**
+     * goods库监控
+     * @return
+     */
     @Bean
     public CanalConnector goodsConnector(){
         return CanalConnectors.newSingleConnector(new InetSocketAddress(host,
                 port), goods, username, password);
     }
 
+    /**
+     * 具体逻辑
+     * @param goodsConnector
+     * @return
+     */
     @Bean
     public CanalExecutor goodsCanalExecutor(CanalConnector goodsConnector){
-        AbstractCanalExecutor goodsCanalExecutor = new GoodsCanalExecutor();
-        goodsCanalExecutor.connector = goodsConnector;
-        return goodsCanalExecutor;
+        return new GoodsCanalExecutor(goodsConnector);
     }
 }
