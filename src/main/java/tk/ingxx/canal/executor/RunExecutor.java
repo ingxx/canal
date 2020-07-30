@@ -24,7 +24,6 @@ public class RunExecutor implements CommandLineRunner {
         Map<String, CanalExecutor> beansOfType = applicationContext.getBeansOfType(CanalExecutor.class);
         beansOfType.forEach((key,value)->{
             value.connect();
-
         });
     }
 }

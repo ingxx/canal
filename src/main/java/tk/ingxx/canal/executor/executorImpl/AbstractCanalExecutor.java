@@ -12,8 +12,9 @@ import tk.ingxx.canal.executor.CanalExecutor;
  **/
 public abstract class AbstractCanalExecutor implements CanalExecutor {
 
+    protected CanalConnector connector;
 
-    public void execute(CanalConnector connector) {
+    public void execute() {
         int emptyCount = 0;
         while (emptyCount < 120) {
             Message message = connector.getWithoutAck(1000); // 获取指定数量的数据

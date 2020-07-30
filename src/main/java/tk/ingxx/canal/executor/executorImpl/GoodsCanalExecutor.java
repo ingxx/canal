@@ -2,6 +2,7 @@ package tk.ingxx.canal.executor.executorImpl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import tk.ingxx.canal.executor.executorImpl.AbstractCanalExecutor;
 
@@ -21,6 +22,7 @@ public class GoodsCanalExecutor extends AbstractCanalExecutor {
     private CanalConnector goodsConnector;
 
     public void connect(){
+        this.connector = goodsConnector;
         goodsConnector.connect();
         goodsConnector.subscribe(".*\\..*");
         goodsConnector.rollback();
