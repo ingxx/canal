@@ -6,9 +6,9 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import java.util.List;
 
 public interface CanalExecutor {
-    void execute();
-
     void connect();
 
-    void readRow(List<CanalEntry.Entry> entry);
+    void execute();
+
+    void disconnect();
 }

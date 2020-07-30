@@ -1,8 +1,11 @@
 package tk.ingxx.canal.executor.executorImpl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
+import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import tk.ingxx.canal.executor.CanalExecutor;
+
+import java.util.List;
 
 /**
  * @program: canal
@@ -12,9 +15,16 @@ import tk.ingxx.canal.executor.CanalExecutor;
  **/
 public abstract class AbstractCanalExecutor implements CanalExecutor {
 
-    protected CanalConnector connector;
+    public CanalConnector connector;
 
-    public void execute() {
+
+    public void connect(){
+        connector.connect();
+        connector.subscribe(".*\\..*");
+        connector.rollback();
+    }
+
+    public final void execute() {
         int emptyCount = 0;
         while (emptyCount < 120) {
             Message message = connector.getWithoutAck(1000); // 获取指定数量的数据
@@ -34,4 +44,10 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
             connector.ack(batchId); // 提交确认
         }
     }
+
+    public final void disconnect(){
+        connector.disconnect();
+    }
+
+    protected abstract void readRow(List<CanalEntry.Entry> entry);
 }

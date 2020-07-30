@@ -7,6 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import tk.ingxx.canal.executor.CanalExecutor;
+import tk.ingxx.canal.executor.executorImpl.AbstractCanalExecutor;
+import tk.ingxx.canal.executor.executorImpl.GoodsCanalExecutor;
 
 import java.net.InetSocketAddress;
 
@@ -19,7 +22,6 @@ import java.net.InetSocketAddress;
 
 @ConfigurationProperties(prefix="canal")
 @Configuration
-@Order(1)
 @Data
 public class CanalConfig {
 
@@ -36,10 +38,15 @@ public class CanalConfig {
     private Integer batchSize;
 
     @Bean
-    @Order(2)
     public CanalConnector goodsConnector(){
         return CanalConnectors.newSingleConnector(new InetSocketAddress(host,
                 port), goods, username, password);
     }
 
+    @Bean
+    public CanalExecutor goodsCanalExecutor(CanalConnector goodsConnector){
+        AbstractCanalExecutor goodsCanalExecutor = new GoodsCanalExecutor();
+        goodsCanalExecutor.connector = goodsConnector;
+        return goodsCanalExecutor;
+    }
 }
