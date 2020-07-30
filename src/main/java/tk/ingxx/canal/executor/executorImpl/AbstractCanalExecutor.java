@@ -52,13 +52,42 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
         }
     }
 
+    /**
+     * 读取到的数据交给子类处理
+     * @param entrys
+     */
+    private final void readRow(List<CanalEntry.Entry> entrys){
+        for (CanalEntry.Entry entry : entrys) {
+            if (entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONBEGIN || entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONEND) {
+                continue;
+            }
+
+            CanalEntry.RowChange rowChage = null;
+            try {
+                rowChage = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+            } catch (Exception e) {
+                throw new RuntimeException("ERROR ## parser of eromanga-event has an error , data:" + entry.toString(),
+                        e);
+            }
+
+            CanalEntry.EventType eventType = rowChage.getEventType();
+            System.out.println(String.format("================&gt; binlog[%s:%s] , name[%s,%s] , eventType : %s",
+                    entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
+                    entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
+                    eventType));
+
+            for (CanalEntry.RowData rowData : rowChage.getRowDatasList()) {
+                if (eventType == CanalEntry.EventType.DELETE) {
+                } else if (eventType == CanalEntry.EventType.INSERT) {
+                } else {
+                    System.out.println("-------&gt; before");
+                    System.out.println("-------&gt; after");
+                }
+            }
+        }
+    }
+
     public final void disconnect(){
         connector.disconnect();
     }
-
-    /**
-     * 读取到的数据交给子类处理
-     * @param entry
-     */
-    protected abstract void readRow(List<CanalEntry.Entry> entry);
 }

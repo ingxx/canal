@@ -24,9 +24,4 @@ public class GoodsCanalExecutor extends AbstractCanalExecutor {
     public GoodsCanalExecutor(CanalConnector canalConnector) {
         super(canalConnector);
     }
-
-    @Override
-    public void readRow(List<CanalEntry.Entry> entry) {
-
-    }
 }
