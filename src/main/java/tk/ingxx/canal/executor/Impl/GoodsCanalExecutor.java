@@ -2,6 +2,7 @@ package tk.ingxx.canal.executor.Impl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,20 +14,13 @@ import java.util.List;
  * @author: weijiankai
  * @create: 2020-07-27 17:21
  **/
-@Component
 public class GoodsCanalExecutor extends AbstractCanalExecutor {
 
-    @Resource
-    private CanalConnector goodsConnector;
-
-    public void connect(){
-        goodsConnector.connect();
-        goodsConnector.subscribe(".*\\..*");
-        goodsConnector.rollback();
-    }
-
-    @Override
-    public void readRow(List<CanalEntry.Entry> entry) {
-
+    /**
+     * 初始化连接类
+     * @param canalConnector
+     */
+    public GoodsCanalExecutor(CanalConnector canalConnector) {
+        super(canalConnector);
     }
 }
