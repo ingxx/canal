@@ -38,8 +38,7 @@ public class CanalConfig {
     @Bean
     @Order(2)
     public CanalConnector goodsConnector(){
-        return CanalConnectors.newSingleConnector(new InetSocketAddress(host,
-                port), goods, username, password);
+        return CanalConnectors.newSingleConnector(new InetSocketAddress(host,port), goods, username, password);
     }
 
 }

@@ -1,4 +1,4 @@
-package tk.ingxx.canal.executor.executorImpl;
+package tk.ingxx.canal.executor.Impl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.Message;

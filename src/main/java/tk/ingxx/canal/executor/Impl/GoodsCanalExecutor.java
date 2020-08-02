@@ -1,9 +1,8 @@
-package tk.ingxx.canal.executor.executorImpl;
+package tk.ingxx.canal.executor.Impl;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import org.springframework.stereotype.Component;
-import tk.ingxx.canal.executor.executorImpl.AbstractCanalExecutor;
 
 import javax.annotation.Resource;
 import java.util.List;
