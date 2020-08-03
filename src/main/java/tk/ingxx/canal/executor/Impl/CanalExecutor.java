@@ -21,7 +21,7 @@ public class CanalExecutor extends AbstractCanalExecutor {
      * 初始化连接类
      * @param canalConnector
      */
-    public CanalExecutor(CanalConnector canalConnector, EntryHandler<?> entryHandler) {
+    public CanalExecutor(CanalConnector canalConnector, EntryHandler entryHandler) {
         super(canalConnector,entryHandler);
     }
 }

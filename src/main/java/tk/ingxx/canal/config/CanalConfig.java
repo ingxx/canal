@@ -47,7 +47,7 @@ public class CanalConfig {
 
 
     @Bean
-    public EntryHandler<?> canalHandler(){
+    public EntryHandler canalHandler(){
         return new CanalHandler();
     }
     /**
@@ -56,7 +56,7 @@ public class CanalConfig {
      * @return
      */
     @Bean
-    public CanalExecutor canalExecutor(CanalConnector connector, EntryHandler<?> canalHandler){
+    public CanalExecutor canalExecutor(CanalConnector connector, EntryHandler canalHandler){
         return new CanalExecutor(connector,canalHandler);
     }
 }

@@ -1,11 +1,14 @@
 package tk.ingxx.canal.executor;
 
+import io.netty.util.concurrent.SingleThreadEventExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Executable;
 import java.util.Map;
+import java.util.concurrent.*;
 
 /**
  * @program: canal
@@ -19,13 +22,16 @@ public class RunExecutor implements CommandLineRunner {
     @Autowired
     private ApplicationContext applicationContext;
 
+    private Executor executable = new ThreadPoolExecutor(10,10,0,
+            TimeUnit.SECONDS,new ArrayBlockingQueue<>(10));
+
     @Override
     public void run(String... args) throws Exception {
         Map<String, CanalExecutor> beansOfType = applicationContext.getBeansOfType(CanalExecutor.class);
         beansOfType.forEach((key,value)->{
             value.connect();
             //开启线程执行
-            value.execute();
+            executable.execute(value::execute);
         });
     }
 }

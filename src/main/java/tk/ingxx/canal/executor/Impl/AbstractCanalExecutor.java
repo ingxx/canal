@@ -18,12 +18,12 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
 
     private CanalConnector connector;
 
-    private EntryHandler<?> entryHandler;
+    private EntryHandler entryHandler;
     /**
      * 定义公共初始化
      * @param canalConnector
      */
-    public AbstractCanalExecutor(CanalConnector canalConnector, EntryHandler<?> entryHandler){
+    public AbstractCanalExecutor(CanalConnector canalConnector, EntryHandler entryHandler){
         this.connector = canalConnector;
         this.entryHandler = entryHandler;
     }
@@ -81,10 +81,11 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
 
             for (CanalEntry.RowData rowData : rowChage.getRowDatasList()) {
                 if (eventType == CanalEntry.EventType.DELETE) {
+                    entryHandler.delete(rowData.getBeforeColumnsList());
                 } else if (eventType == CanalEntry.EventType.INSERT) {
+                    entryHandler.insert(rowData.getAfterColumnsList());
                 } else {
-                    System.out.println("-------&gt; before");
-                    System.out.println("-------&gt; after");
+                    entryHandler.update(rowData.getBeforeColumnsList(),rowData.getAfterColumnsList());
                 }
             }
         }
