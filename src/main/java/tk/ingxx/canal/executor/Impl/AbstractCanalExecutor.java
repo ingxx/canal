@@ -3,6 +3,7 @@ package tk.ingxx.canal.executor.Impl;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
+import tk.ingxx.canal.canalHandler.EntryHandler;
 import tk.ingxx.canal.executor.CanalExecutor;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
 
     private CanalConnector connector;
 
+    private EntryHandler<?> entryHandler;
     /**
      * 定义公共初始化
      * @param canalConnector
      */
-    public AbstractCanalExecutor(CanalConnector canalConnector){
+    public AbstractCanalExecutor(CanalConnector canalConnector, EntryHandler<?> entryHandler){
         this.connector = canalConnector;
+        this.entryHandler = entryHandler;
     }
 
     public void connect(){

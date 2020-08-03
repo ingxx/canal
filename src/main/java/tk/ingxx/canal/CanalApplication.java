@@ -10,9 +10,6 @@ import javax.annotation.Resource;
 public class CanalApplication {
 
 
-    @Resource
-    private CanalConnector goodsConnector;
-
     public static void main(String[] args) {
         SpringApplication.run(CanalApplication.class, args);
     }

@@ -6,10 +6,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import tk.ingxx.canal.executor.CanalExecutor;
-import tk.ingxx.canal.executor.executorImpl.AbstractCanalExecutor;
-import tk.ingxx.canal.executor.executorImpl.GoodsCanalExecutor;
+import tk.ingxx.canal.canalHandler.CanalHandler;
+import tk.ingxx.canal.canalHandler.EntryHandler;
+import tk.ingxx.canal.executor.Impl.CanalExecutor;
 
 import java.net.InetSocketAddress;
 
@@ -29,7 +28,7 @@ public class CanalConfig {
 
     private Integer port;
 
-    private String goods;
+    private String destination;
 
     private String username;
 
@@ -38,21 +37,26 @@ public class CanalConfig {
     private Integer batchSize;
 
     /**
-     * goods库监控
+     * 监控
      * @return
      */
     @Bean
-    public CanalConnector goodsConnector(){
-        return CanalConnectors.newSingleConnector(new InetSocketAddress(host,port), goods, username, password);
+    public CanalConnector connector(){
+        return CanalConnectors.newSingleConnector(new InetSocketAddress(host,port), destination, username, password);
     }
 
+
+    @Bean
+    public EntryHandler<?> canalHandler(){
+        return new CanalHandler();
+    }
     /**
      * 具体逻辑
-     * @param goodsConnector
+     * @param connector
      * @return
      */
     @Bean
-    public CanalExecutor goodsCanalExecutor(CanalConnector goodsConnector){
-        return new GoodsCanalExecutor(goodsConnector);
+    public CanalExecutor canalExecutor(CanalConnector connector, EntryHandler<?> canalHandler){
+        return new CanalExecutor(connector,canalHandler);
     }
 }
