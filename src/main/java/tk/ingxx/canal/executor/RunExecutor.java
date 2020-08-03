@@ -22,7 +22,7 @@ public class RunExecutor implements CommandLineRunner {
     @Autowired
     private ApplicationContext applicationContext;
 
-    private Executor executable = new ThreadPoolExecutor(10,10,0,
+    private static Executor executable = new ThreadPoolExecutor(10,10,120,
             TimeUnit.SECONDS,new ArrayBlockingQueue<>(10));
 
     @Override

@@ -59,7 +59,7 @@ public abstract class AbstractCanalExecutor implements CanalExecutor {
      * 读取到的数据交给子类处理
      * @param entrys
      */
-    private final void readRow(List<CanalEntry.Entry> entrys){
+    private void readRow(List<CanalEntry.Entry> entrys){
         for (CanalEntry.Entry entry : entrys) {
             if (entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONBEGIN || entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONEND) {
                 continue;
